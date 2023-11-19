@@ -100,7 +100,20 @@ void RtlSdrDevice::open() {
     }
   }
 
-  if (m_config.rtlSdrPpm() != 0 && rtlsdr_set_freq_correction(m_device, m_config.rtlSdrPpm()) != 0) {
+  // TEMP FIX:
+  double ppm = m_config.rtlSdrPpm();
+  if (m_serial == "00000001") {
+      ppm = -0.6;
+  } else if (m_serial == "00000002") {
+      ppm = -0.24;
+  } else if (m_serial == "00000003") {
+      ppm = -29.5;
+  } else if (m_serial == "00000004") {
+      ppm = -40.6;
+  }
+  Logger::info("SoapySDR", "set Frequency Correction ppm: {} , device: {}", ppm, m_serial);
+ 
+  if (m_config.rtlSdrPpm() != 0 && rtlsdr_set_freq_correction(m_device, ppm) != 0) {
     throw std::runtime_error("can not set tuner ppm");
   }
 }

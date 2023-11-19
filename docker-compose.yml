@@ -1,6 +1,7 @@
 services:
   sdr-broker:
     image: eclipse-mosquitto:latest
+    env_file: .env
     restart: on-failure
     command:
       - /bin/sh
@@ -13,7 +14,8 @@ services:
         mosquitto_passwd -U /mosquitto/config/password.txt
         mosquitto -c /mosquitto/config/mosquitto.conf
   sdr-scanner:
-    image: shajen/sdr-scanner:latest
+    image: shajen/sdr-scanner:${SDR_SCANNER_TAG:-latest}
+    env_file: .env
     restart: on-failure
     depends_on:
       - sdr-broker
@@ -24,7 +26,8 @@ services:
     devices:
       - /dev/bus/usb:/dev/bus/usb
   sdr-monitor-setup:
-    image: shajen/sdr-monitor:latest
+    image: shajen/sdr-monitor:${MONITOR_TAG:-latest}
+    env_file: .env
     restart: on-failure
     depends_on:
       - sdr-broker
@@ -35,7 +38,8 @@ services:
       - monitor_data:/usr/src/sdr-panel/public/media
     command: bash -c "python3 manage.py migrate && DJANGO_SUPERUSER_PASSWORD=password python3 manage.py createsuperuser --noinput --username admin --email admin@local.local &> /dev/null || true"
   sdr-monitor-server:
-    image: shajen/sdr-monitor:latest
+    image: shajen/sdr-monitor:${MONITOR_TAG:-latest}
+    env_file: .env
     restart: on-failure
     depends_on:
       sdr-monitor-setup:
@@ -49,7 +53,8 @@ services:
     ports:
       - 8000:8000
   sdr-monitor-reader:
-    image: shajen/sdr-monitor:latest
+    image: shajen/sdr-monitor:${MONITOR_TAG:-latest}
+    env_file: .env
     restart: on-failure
     depends_on:
       sdr-monitor-setup:
