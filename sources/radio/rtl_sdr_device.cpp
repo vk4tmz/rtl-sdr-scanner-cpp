@@ -87,11 +87,31 @@ void RtlSdrDevice::open() {
     throw std::runtime_error("can not open rtl sdr device");
   }
 
-  if (0.01 <= m_config.rtlSdrGain()) {
+
+  // TEMP FIX:
+  uint32_t ppm = m_config.rtlSdrPpm();
+  float gain = m_config.rtlSdrGain();
+  if (m_serial == "00000001") {
+      ppm = m_config.rtlSdr00000001Ppm();
+      gain = m_config.rtlSdr00000001Gain();
+  } else if (m_serial == "00000002") {
+      ppm = m_config.rtlSdr00000002Ppm();
+      gain = m_config.rtlSdr00000002Gain();
+  } else if (m_serial == "00000003") {
+      ppm = m_config.rtlSdr00000003Ppm();
+      gain = m_config.rtlSdr00000003Gain();
+  } else if (m_serial == "00000004") {
+      ppm = m_config.rtlSdr00000004Ppm();
+      gain = m_config.rtlSdr00000004Gain();
+  }
+  Logger::info("SoapySDR", "set Frequency Correction ppm: {} , device: {}", ppm, m_serial);
+  Logger::info("SoapySDR", "set Gain: {} , device: {}", gain, m_serial);
+
+  if (0.01 <= gain) {
     if (rtlsdr_set_tuner_gain_mode(m_device, 1) != 0) {
       throw std::runtime_error("can not set tuner gain manual");
     }
-    if (rtlsdr_set_tuner_gain(m_device, std::lround(m_config.rtlSdrGain() * 10)) != 0) {
+    if (rtlsdr_set_tuner_gain(m_device, std::lround(gain * 10)) != 0) {
       throw std::runtime_error("can not set tuner gain");
     }
   } else {
@@ -99,21 +119,8 @@ void RtlSdrDevice::open() {
       throw std::runtime_error("can not set tuner gain auto");
     }
   }
-
-  // TEMP FIX:
-  double ppm = m_config.rtlSdrPpm();
-  if (m_serial == "00000001") {
-      ppm = -0.6;
-  } else if (m_serial == "00000002") {
-      ppm = -0.24;
-  } else if (m_serial == "00000003") {
-      ppm = -29.5;
-  } else if (m_serial == "00000004") {
-      ppm = -40.6;
-  }
-  Logger::info("SoapySDR", "set Frequency Correction ppm: {} , device: {}", ppm, m_serial);
  
-  if (m_config.rtlSdrPpm() != 0 && rtlsdr_set_freq_correction(m_device, ppm) != 0) {
+  if (ppm != 0 && rtlsdr_set_freq_correction(m_device, ppm) != 0) {
     throw std::runtime_error("can not set tuner ppm");
   }
 }

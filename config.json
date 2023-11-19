@@ -1,11 +1,31 @@
 {
   "scanner_frequencies_ranges": [
     {
-      "device_serial": "auto",
+      "device_serial": "00000001",
       "ranges": [
         {
-          "start": 144000000,
-          "stop": 146000000,
+          "start": 156000000,
+          "stop": 158048000,
+          "sample_rate": 2048000
+        }
+      ]
+    },
+    {
+      "device_serial": "00000002",
+      "ranges": [
+        {
+          "start": 160050000,
+          "stop": 162098000,
+          "sample_rate": 2048000
+        }
+      ]
+    },
+    {
+      "device_serial": "00000003",
+      "ranges": [
+        {
+          "start": 145450000,
+          "stop": 147498000,
           "sample_rate": 2048000
         }
       ]
@@ -15,7 +35,27 @@
   "devices": {
     "rtl_sdr": {
       "ppm_error": 0,
-      "tuner_gain": 0.0,
+      "tuner_gain": 0,
+      "offset": 0
+    },
+    "rtl_sdr_00000001": {
+      "ppm_error": 1,
+      "tuner_gain": 35,
+      "offset": 0
+    },
+    "rtl_sdr_00000002": {
+      "ppm_error": 0,
+      "tuner_gain": 35,
+      "offset": 0
+    },
+    "rtl_sdr_00000003": {
+      "ppm_error": 30,
+      "tuner_gain": 44,
+      "offset": 0
+    },
+    "rtl_sdr_00000004": {
+      "ppm_error": 41,
+      "tuner_gain": 42,
       "offset": 0
     },
     "hack_rf": {
@@ -26,11 +66,11 @@
   },
   "recording": {
     "max_noise_time_ms": 500,
-    "min_time_ms": 2000,
+    "min_time_ms": 750,
     "min_sample_rate": 16000
   },
   "detection": {
-    "frequency_grouping_size": 10000,
+    "frequency_grouping_size": 12500,
     "frequency_range_scanning_time_ms": 64,
     "noise_learning_time_seconds": 30,
     "noise_detection_margin": 10,

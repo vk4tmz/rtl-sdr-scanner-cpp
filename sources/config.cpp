@@ -169,6 +169,14 @@ Config::Config(const std::string &path, const std::string &config)
       m_fileLogLevel(parseLogLevel(readKey(m_json, {"output", "file_log_level"}, std::string("info")))),
       m_rtlSdrPpm(readKey(m_json, {"devices", "rtl_sdr", "ppm_error"}, 0)),
       m_rtlSdrGain(readKey(m_json, {"devices", "rtl_sdr", "tuner_gain"}, 0.0)),
+      m_rtlSdr00000001Ppm(readKey(m_json, {"devices", "rtl_sdr_00000001", "ppm_error"}, 0)),
+      m_rtlSdr00000001Gain(readKey(m_json, {"devices", "rtl_sdr_00000001", "tuner_gain"}, 0.0)),
+      m_rtlSdr00000002Ppm(readKey(m_json, {"devices", "rtl_sdr_00000002", "ppm_error"}, 0)),
+      m_rtlSdr00000002Gain(readKey(m_json, {"devices", "rtl_sdr_00000002", "tuner_gain"}, 0.0)),
+      m_rtlSdr00000003Ppm(readKey(m_json, {"devices", "rtl_sdr_00000003", "ppm_error"}, 0)),
+      m_rtlSdr00000003Gain(readKey(m_json, {"devices", "rtl_sdr_00000003", "tuner_gain"}, 0.0)),
+      m_rtlSdr00000004Ppm(readKey(m_json, {"devices", "rtl_sdr_00000004", "ppm_error"}, 0)),
+      m_rtlSdr00000004Gain(readKey(m_json, {"devices", "rtl_sdr_00000004", "tuner_gain"}, 0.0)),
       m_rtlSdrRadioOffset(readKey(m_json, {"devices", "rtl_sdr", "offset"}, 0)),
       m_hackRfLnaGain(readKey(m_json, {"devices", "hack_rf", "lna_gain"}, 0)),
       m_hackRfVgaGain(readKey(m_json, {"devices", "hack_rf", "vga_gain"}, 0)),
@@ -211,6 +219,15 @@ std::string Config::logDir() const { return m_logsDirectory; }
 
 uint32_t Config::rtlSdrPpm() const { return m_rtlSdrPpm; }
 float Config::rtlSdrGain() const { return m_rtlSdrGain; }
+uint32_t Config::rtlSdr00000001Ppm() const { return m_rtlSdr00000001Ppm; }
+float Config::rtlSdr00000001Gain() const { return m_rtlSdr00000001Gain; }
+uint32_t Config::rtlSdr00000002Ppm() const { return m_rtlSdr00000002Ppm; }
+float Config::rtlSdr00000002Gain() const { return m_rtlSdr00000002Gain; }
+uint32_t Config::rtlSdr00000003Ppm() const { return m_rtlSdr00000003Ppm; }
+float Config::rtlSdr00000003Gain() const { return m_rtlSdr00000003Gain; }
+uint32_t Config::rtlSdr00000004Ppm() const { return m_rtlSdr00000004Ppm; }
+float Config::rtlSdr00000004Gain() const { return m_rtlSdr00000004Gain; }
+
 int32_t Config::rtlSdrOffset() const { return m_rtlSdrRadioOffset; }
 
 uint32_t Config::hackRfLnaGain() const { return m_hackRfLnaGain; }

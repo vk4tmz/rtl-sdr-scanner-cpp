@@ -51,6 +51,14 @@ class Config {
 
   uint32_t rtlSdrPpm() const;
   float rtlSdrGain() const;
+  uint32_t rtlSdr00000001Ppm() const;
+  float rtlSdr00000001Gain() const;
+  uint32_t rtlSdr00000002Ppm() const;
+  float rtlSdr00000002Gain() const;
+  uint32_t rtlSdr00000003Ppm() const;
+  float rtlSdr00000003Gain() const;
+  uint32_t rtlSdr00000004Ppm() const;
+  float rtlSdr00000004Gain() const;
   int32_t rtlSdrOffset() const;
 
   uint32_t hackRfLnaGain() const;
@@ -91,6 +99,14 @@ class Config {
 
   const uint32_t m_rtlSdrPpm;
   const float m_rtlSdrGain;
+  const uint32_t m_rtlSdr00000001Ppm;
+  const float m_rtlSdr00000001Gain;
+  const uint32_t m_rtlSdr00000002Ppm;
+  const float m_rtlSdr00000002Gain;
+  const uint32_t m_rtlSdr00000003Ppm;
+  const float m_rtlSdr00000003Gain;
+  const uint32_t m_rtlSdr00000004Ppm;
+  const float m_rtlSdr00000004Gain;
   const int32_t m_rtlSdrRadioOffset;
 
   const uint32_t m_hackRfLnaGain;
